@@ -1,0 +1,61 @@
+#server:
+#  port: 8443
+#  ssl:
+#    enabled: true
+#    key-store: classpath:product-api.p12
+#    key-store-password: Chutzpah@123
+#    key-store-type: PKCS12
+#    key-alias: product-api
+#
+#spring:
+#  datasource:
+#    # Replace 'localhost:3306' with your host and 'your_database_name' with your actual schema
+#    url: jdbc:mysql://localhost:3306/demo1?useSSL=false&serverTimezone=UTC
+#    username: root
+#    password: Chutzpah@123
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      # Use 'update' for dev to auto-create tables; use 'validate' or 'none' for production
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#jwt:
+#  secret: my-super-secret-key-for-jwt-authentication-2026
+#  #For HMAC JWTs, the key needs sufficient length; JJWT will reject inadequate keys.
+#
+
+
+
+#for dockerising
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:product-api.p12
+    key-store-password: ${SSL_KEYSTORE_PASSWORD:changeit}
+    key-store-type: PKCS12
+    key-alias: product-api
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/demo1?useSSL=false&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: ${JWT_SECRET:change-me-to-a-random-string-of-at-least-32-characters}
